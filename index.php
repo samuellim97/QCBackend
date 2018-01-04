@@ -1,5 +1,15 @@
 <?php
+require_once __DIR__ . '/vendor/autoload.php';
 
-echo "Hello World";
+
+$klein = new \Klein\Klein();
+
+
+$klein->respond(function(){
+    print(json_encode([
+	'success' => 'false',
+	'msg' => 'Illegal request'
+    ]);
+});
 
 ?>
