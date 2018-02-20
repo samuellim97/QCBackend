@@ -1,0 +1,12 @@
+com\help\qcbackend\QCB$ModelCreator.class
+com\help\qcbackend\QCB.class
+com\help\qcbackend\repo\ClientRepo.class
+com\help\qcbackend\repo\UserRepo.class
+com\help\qcbackend\services\CounterService.class
+com\help\qcbackend\models\Client.class
+com\help\qcbackend\MainController.class
+com\help\qcbackend\Person.class
+com\help\qcbackend\models\QuickCard.class
+com\help\qcbackend\models\User.class
+com\help\qcbackend\models\SequenceCounter.class
+com\help\qcbackend\repo\QuickCardRepo.class
