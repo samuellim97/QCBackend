@@ -28,41 +28,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-class Person{
-    static int count=0;
-    private int id=0;
-    private String name="Unknown";
-
-    public Person() {
-        count++;
-    }            
-    
-    public Person(int id, String name){
-        this();
-        setName(name);
-        setId(id);
-    }
-
-    public void setId(int id) {
-        this.id = id;        
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-    
-    
-
-    public int getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
- }
-
 /**
  *
  * @author shath
@@ -71,19 +36,11 @@ class Person{
 @SpringBootApplication
 public class MainController implements CommandLineRunner {
     private QCB controller;
-    
-    @Autowired
-    private ClientRepo repo;
-    
-    @Autowired
-    private UserRepo userRepo;
-    
-    @Autowired
-    private QuickCardRepo quickCardRepo;
+    ;
     
     @Override
     public void run(String... strings) throws Exception {
-        controller = new QCB(repo, userRepo, quickCardRepo);               
+        controller = new QCB();               
     }
     
     @RequestMapping("/")

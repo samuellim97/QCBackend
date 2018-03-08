@@ -5,6 +5,7 @@
  */
 package com.help.qcbackend.models;
 
+import com.help.qcbackend.database.DatabaseHandler;
 import com.help.qcbackend.services.CounterService;
 import org.springframework.data.annotation.Id;
 
@@ -26,8 +27,12 @@ public class Client {
     }
     
     
-    public Client(String name, double balance) {        
-        this.id = String.valueOf(last_num++);
+    public Client(String name, double balance) {      
+        CounterService cs = new CounterService();
+        cs.setMongo(DatabaseHandler.getInstance().getDb());
+        
+        this.setId( String.valueOf(cs.getNextSequence("client")));
+        
         this.name = name;
         this.balance = balance;
     }

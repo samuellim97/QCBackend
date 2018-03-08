@@ -24,13 +24,18 @@ import org.springframework.stereotype.Service;
 @Service
 public class CounterService {
   @Autowired private MongoOperations mongo;
+
+    public void setMongo(MongoOperations mongo) {
+        this.mongo = mongo;
+    }   
    
   public int getNextSequence(String collectionName) { 
+      query(where("id").is("client"));
       SequenceCounter counter = mongo.findAndModify(
       query(where("_id").is(collectionName)), 
       new Update().inc("seq", 1),
-      options().returnNew(true),
-      SequenceCounter.class); 
+      options().returnNew(true).upsert(true),
+      SequenceCounter.class);       
     return counter.getSeq();
   }
 }
