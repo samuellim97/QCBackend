@@ -7,32 +7,27 @@ package com.help.qcbackend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.boot.CommandLineRunner;
 
 import com.help.qcbackend.models.Client;
-import com.help.qcbackend.models.QuickCard;
-import com.help.qcbackend.repo.ClientRepo;
-import com.help.qcbackend.repo.QuickCardRepo;
-import com.help.qcbackend.repo.UserRepo;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
+import javax.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
  * @author shath
  */
-@Controller
+@RestController
 @SpringBootApplication
 public class MainController implements CommandLineRunner {
     private QCB controller;
@@ -43,10 +38,45 @@ public class MainController implements CommandLineRunner {
         controller = new QCB();               
     }
     
-    @RequestMapping("/")
-    @ResponseBody
+    @RequestMapping("/")    
     String home() {
         return "QuickCard Back-end is ready.";
+    }
+    
+    @RequestMapping("/login")    
+    String home2(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session  = request.getSession();
+        boolean logged_in = false;
+        try{
+        logged_in = (boolean) session.getAttribute("logged_in");
+        }catch(Exception ex){
+            
+        }
+        if(logged_in)
+            return "logged in";        
+        else
+            request.getSession().setAttribute("logged_in", true);        
+        return "not logged in";
+    }
+    
+    
+    
+    @RequestMapping("/logout")    
+    String logout(HttpServletRequest request,
+            HttpServletResponse response) {
+        HttpSession session  = request.getSession();
+        boolean logged_in = false;
+        try{
+        logged_in = (boolean) session.getAttribute("logged_in");
+        
+        }catch(Exception ex){
+            
+        }
+        if(logged_in){            
+            session.invalidate();
+            return "Logged out."; 
+        }
+        return "not logged in";
     }
     
     @RequestMapping(method = RequestMethod.DELETE, path = "/clients")
@@ -59,9 +89,9 @@ public class MainController implements CommandLineRunner {
     
     @RequestMapping(method = RequestMethod.PUT, path = "/client")
     @ResponseStatus(HttpStatus.CREATED)
-   // @ExceptionHandler(DataIntegrityViolationException.class)
     @ResponseBody            
-    boolean createClient(@RequestParam(value="name") String name){        
+    boolean createClient(@RequestParam(value="name") String name){ 
+        
         Client c = controller.addNewClient(
                 controller.new ModelCreator()
                         .createClient(name)        
@@ -69,9 +99,10 @@ public class MainController implements CommandLineRunner {
         return true;
     }
     
-    @RequestMapping("/clients/{clientId}")
+    @RequestMapping("/clients/{clientId}")    
     @ResponseBody
-    public Client findClient(@PathVariable(value = "clientId") String clientId, HttpServletResponse response){        
+    public Client findClient(@PathVariable(value = "clientId") String clientId, HttpServletResponse response){ 
+                
         Client c = controller.retrieveClient(clientId);
         if(c == null){
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
