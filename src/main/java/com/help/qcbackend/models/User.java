@@ -5,57 +5,48 @@
  */
 package com.help.qcbackend.models;
 
-import java.util.ArrayList;
-import org.springframework.data.annotation.Id;
-
 /**
- *
+ * A User that can log in to the system.
+ * todo: Give a better name to this class.
  * @author shath
  */
-public class User {
-    @Id  
-    private int userId;    
-    
-    private String email;
-    private String name;
-    private ArrayList<QuickCard> quickCards;
+public class User {        
+    private String loginId;
+    private String passwordHash;
 
-    public User(String email, String name) {
-        this.email = email;
-        this.name = name;
+    User(){
+    }
+
+    User(String loginId, String passwordHash){
+	setLoginId(loginId);
+	setPassword(passwordHash);
     }
     
     
-    public int getUserId() {
-        return userId;
+    public boolean validatePassword(String password){
+	
+	return true;
     }
 
-    public void setUserId(int user_id) {
-        this.userId = user_id;
+    public String getLoginId() {
+        return loginId;
     }
 
-    public String getEmail() {
-        return email;
+    public void setLoginId(String loginId) {
+        this.loginId = loginId;
+    }
+    
+
+    public String getPasswordHash() {
+        return passwordHash;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public ArrayList<QuickCard> getQuickCards() {
-        return quickCards;
-    }
-
-    public void setQuickCards(ArrayList<QuickCard> quickCards) {
-        this.quickCards = quickCards;
+    /**
+     * Create and store a password hash given a password.
+     * @param password 
+     */
+    public void setPassword(String password) {
+        this.passwordHash = passwordHash;
     }
     
     

@@ -10,7 +10,8 @@ import com.help.qcbackend.services.CounterService;
 import org.springframework.data.annotation.Id;
 
 /**
- *
+ * This class is used to test initial system.
+ * TODO: Remove this class from the project.
  * @author shath
  */
 public class Client { 

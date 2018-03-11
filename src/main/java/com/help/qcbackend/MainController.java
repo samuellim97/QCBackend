@@ -31,7 +31,6 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 public class MainController implements CommandLineRunner {
     private QCB controller;
-    ;
     
     @Override
     public void run(String... strings) throws Exception {

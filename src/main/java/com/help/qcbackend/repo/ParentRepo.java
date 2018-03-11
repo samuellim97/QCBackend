@@ -5,15 +5,15 @@
  */
 package com.help.qcbackend.repo;
 
+import com.help.qcbackend.models.Parent;
 import java.io.Serializable;
 import org.springframework.data.mongodb.repository.MongoRepository;
-import com.help.qcbackend.models.QuickCard;
 
 /**
  *
  * @author shath
  */
-public interface QuickCardRepo extends MongoRepository<QuickCard, Serializable> {
-    public QuickCard findById(int id);
-    public QuickCard findByUid(String uid);
+public interface ParentRepo  extends MongoRepository<Parent, Serializable>  {
+    public Parent findByEmail(String email);
+    public Parent findById(String id);
 }

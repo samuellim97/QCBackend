@@ -5,7 +5,7 @@
  */
 package com.help.qcbackend.repo;
 
-import com.help.qcbackend.models.User;
+import com.help.qcbackend.models.TestUser;
 import java.io.Serializable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
@@ -13,7 +13,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
  *
  * @author shath
  */
-public interface UserRepo extends MongoRepository<User, String>{
-    public User findByUserId(int id);
-    public User findByEmail(String email);
+public interface UserRepo extends MongoRepository<TestUser, String>{
+    public TestUser findByUserId(int id);
+    public TestUser findByEmail(String email);
 }
